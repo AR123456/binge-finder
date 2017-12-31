@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NYT Archives Search </title>
         <!-- Added link to the jQuery Library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Added a link to Bootstrap-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+         <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
   <div class="container">
@@ -33,7 +33,7 @@
           </div>
           <div class="form-group">
               <label for="sel1">Number of Records to Retrieve:</label>
-              <select class="form-control" id="sel1">
+              <select class="form-control" id="numRecords">
                 <option value=1>1</option>
                 <option value=5 selected>5</option>
                 <option value=10>10</option>
@@ -61,53 +61,20 @@
           <div class="panel-heading">
             <h3 class="panel-title">Search Results</h3>
           </div>
-          <div class="panel-body">
-              <div class="well">
-                <h2>Title</h2>
-                <h3>Author</h3>
-                <h4>Section</h4>
-                <h4>Date</h4>
-                <h4>Link</h4>
-              </div>
+          <div class="panel-body" id="wellSection">
+
           </div>
       </div>
     </div>
   </div>
   </div>
       
-
-
-
-
-<!--   
-  
-    <div class="cont">
-        <p>Start Year(optional)</p>
-        <input type="text" id="startYear">
-    </div>
-   <div class="cont">
-      <p>End Year(optional)</p>
-    <input type="text" id="endYear">
-   </div>
-
-    <button id="search">Search</button>
-    <button id="clear"> Clear</button>
-    
-
-
-  <div class="articles">
-    <h2>Top Articles</h2>
-      <div id="results">
-        <!-- results container -->
-        <!-- </div>
-  </div>
-</div>   --> -->
         <!-- Script -->
          <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-        <script src ="./assets/javascript/app.js" > </script>  
+    <script src ="./assets/javascript/app.js" > </script>  
 </body>
 </html>
