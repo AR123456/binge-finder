@@ -1,0 +1,19 @@
+.main {
+    border: 2px solid black;
+    margin: 20px;
+    padding: 5px;
+  }
+  .articles {
+    border: 2px solid black;
+    margin: 20px;
+    padding: 5px;
+    min-height: 250px;
+  }
+
+  h2 {
+    border-bottom: 2px black solid;
+  }
+  .cont {
+    background: lightblue;
+    margin: 5px 0 5px 0;
+  }
