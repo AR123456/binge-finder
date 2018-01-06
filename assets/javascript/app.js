@@ -8,7 +8,7 @@ var endYear = 0;
 //function to handel the error 
 var invocation = new XMLHttpRequest();
 //URL Base 
-var queryURLBase = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=' + authKey; 
+var queryURLBase = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=' + authKey; 
 // track number of articles 
 var articleCounter = 0;
 //functions 
