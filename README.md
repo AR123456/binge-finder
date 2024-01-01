@@ -1,2 +1,1 @@
-# NYTAPI
-NY Times Article Search 
+## Looking at some code certifications
