@@ -23,6 +23,12 @@ const locations = [
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
   },
+  {
+    name: "cave",
+    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+    "button functions": [fightSlime, fightBeast, goTown],
+    text: "You enter the cave. You see some monsters.",
+  },
 ];
 // selecting elemenst
 const button1 = document.querySelector("#button1");
@@ -60,3 +66,5 @@ function buyWeapon() {}
 
 function goCave() {}
 function fightDragon() {}
+function fightSlime() {}
+function fightBeast() {}
