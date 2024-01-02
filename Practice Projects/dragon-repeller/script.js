@@ -43,7 +43,9 @@ button3.onclick = fightDragon;
 function goTown() {
   update(locations[0]);
 }
-function goStore() {}
+function goStore() {
+  update(locations[1]);
+}
 function update(location) {
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
