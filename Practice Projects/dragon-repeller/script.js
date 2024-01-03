@@ -5,6 +5,7 @@ let gold = 50;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
+
 let inventory = ["stick"];
 const weapons = [
   { name: "stick", power: 5 },
@@ -103,3 +104,10 @@ function goCave() {
 function fightDragon() {}
 function fightSlime() {}
 function fightBeast() {}
+function sellWeapon() {
+  let currentWeapon;
+  if (inventory.length > 1) {
+    gold += 15;
+    goldText.innerText = gold;
+  }
+}
