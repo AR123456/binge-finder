@@ -61,10 +61,19 @@ function update(location) {
   button3.onclick = location["button functions"][2];
   text.innerText = location.text;
 }
-function buyHealth() {}
+function buyHealth() {
+  if (gold > 9) {
+    gold -= 10;
+    health += 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+  }
+}
 function buyWeapon() {}
 
-function goCave() {}
+function goCave() {
+  update(locations[2]);
+}
 function fightDragon() {}
 function fightSlime() {}
 function fightBeast() {}
