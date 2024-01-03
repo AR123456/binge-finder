@@ -62,11 +62,13 @@ function update(location) {
   text.innerText = location.text;
 }
 function buyHealth() {
-  if (gold > 9) {
+  if (gold >= 10) {
     gold -= 10;
     health += 10;
     goldText.innerText = gold;
     healthText.innerText = health;
+  } else {
+    text.innerText = "You do not have enough gold to buy health.";
   }
 }
 function buyWeapon() {}
