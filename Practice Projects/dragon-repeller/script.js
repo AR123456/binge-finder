@@ -5,14 +5,30 @@ let gold = 50;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
-
 let inventory = ["stick"];
+// selecting elemenst
+const button1 = document.querySelector("#button1");
+const button2 = document.querySelector("#button2");
+const button3 = document.querySelector("#button3");
+const text = document.querySelector("#text");
+const xpText = document.querySelector("#xpText");
+const healthText = document.querySelector("#healthText");
+const goldText = document.querySelector("#goldText");
+const monsterStats = document.querySelector("#monsterStats");
+const monsterName = document.querySelector("#monsterName");
+const monsterHealthText = document.querySelector("#monsterHealth");
 const weapons = [
   { name: "stick", power: 5 },
   { name: "dagger", power: 30 },
   { name: "claw hammer", power: 50 },
   { name: "sword", power: 100 },
 ];
+const monsters = [
+  { name: "slime", level: 2, health: 15 },
+  { name: "fanged beast", level: 8, health: 60 },
+  { name: "dragon", level: 20, health: 300 },
+];
+
 const locations = [
   {
     name: "town square",
@@ -36,18 +52,14 @@ const locations = [
     "button functions": [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters.",
   },
+  {
+    name: "fight",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster.",
+  },
 ];
-// selecting elemenst
-const button1 = document.querySelector("#button1");
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
-const text = document.querySelector("#text");
-const xpText = document.querySelector("#xpText");
-const healthText = document.querySelector("#healthText");
-const goldText = document.querySelector("#goldText");
-const monsterStats = document.querySelector("#monsterStats");
-const monsterName = document.querySelector("#monsterName");
-const monsterHealthText = document.querySelector("#monsterHealth");
+
 // initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
@@ -97,17 +109,36 @@ function buyWeapon() {
     button2.onclick = sellWeapon;
   }
 }
+function sellWeapon() {
+  if (inventory.length > 1) {
+    gold += 15;
+    goldText.innerText = gold;
+    let currentWeapon = inventory.shift();
+    text.innerText = "You sold a " + currentWeapon + ".";
+    text.innerText += " In your inventory you have: " + inventory;
+  } else {
+    text.innerText = "Don't sell your only weapon!";
+  }
+}
+function fightSlime() {
+  fighting = 0;
+  goFight();
+}
+function fightBeast() {
+  fighting = 1;
+}
+
+function fightDragon() {
+  fighting = 2;
+}
+
+function goFight() {
+  update(locations[3]);
+  monsterHealth = monsters[fighting].health;
+}
 
 function goCave() {
   update(locations[2]);
 }
-function fightDragon() {}
-function fightSlime() {}
-function fightBeast() {}
-function sellWeapon() {
-  let currentWeapon;
-  if (inventory.length > 1) {
-    gold += 15;
-    goldText.innerText = gold;
-  }
-}
+function attack() {}
+function dodge() {}
