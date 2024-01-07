@@ -74,6 +74,12 @@ const locations = [
     "button functions": [restart, restart, restart],
     text: "You die. ☠️",
   },
+  {
+    name: "win",
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+    "button functions": [restart, restart, restart],
+    text: "You defeat the dragon! YOU WIN THE GAME! 🎉",
+  },
 ];
 
 // initialize buttons
@@ -81,12 +87,6 @@ button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 // functions
-function goTown() {
-  update(locations[0]);
-}
-function goStore() {
-  update(locations[1]);
-}
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -97,6 +97,26 @@ function update(location) {
   button3.onclick = location["button functions"][2];
   text.innerText = location.text;
 }
+function goTown() {
+  update(locations[0]);
+}
+function goStore() {
+  update(locations[1]);
+}
+function goCave() {
+  update(locations[2]);
+}
+function buyHealth() {
+  if (gold >= 10) {
+    gold -= 10;
+    health += 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+  } else {
+    text.innerText = "You do not have enough gold to buy health.";
+  }
+}
+
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -159,9 +179,6 @@ function goFight() {
   monsterHealthText.innerText = monsterHealth;
 }
 
-function goCave() {
-  update(locations[2]);
-}
 function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
   text.innerText +=
@@ -174,12 +191,7 @@ function attack() {
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    defeatMonster();
-  }
-  if (fighting === 2) {
-    winGame();
-  } else {
-    defeatMonster();
+    fighting === 2 ? winGame() : defeatMonster();
   }
 }
 function dodge() {
@@ -195,6 +207,10 @@ function defeatMonster() {
 function lose() {
   update(locations[6]);
 }
+function winGame() {
+  update(locations[6]);
+}
+
 function restart() {
   xp = 0;
   health = 100;
