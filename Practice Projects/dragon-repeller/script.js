@@ -205,6 +205,9 @@ function attack() {
   } else if (monsterHealth <= 0) {
     fighting === 2 ? winGame() : defeatMonster();
   }
+  if (Math.random() <= 0.1) {
+    text.innerText += " Your " + inventory.pop() + " breaks.";
+  }
 }
 function getMonsterAttackValue(level) {
   const hit = level * 5 - Math.floor(Math.random() * xp);
