@@ -258,7 +258,16 @@ function restart() {
 function easterEgg() {
   update(locations[7]);
 }
-function pick(guess) {}
+function pick(guess) {
+  let numbers = [];
+  while (numbers.length < 10) {
+    numbers.push(Math.floor(Math.random() * 11));
+  }
+  text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+  for (let i = 0; i < 10; i++) {
+    text.innerText += numbers[i] + "\n";
+  }
+}
 function pickTwo() {
   pick(2);
 }
