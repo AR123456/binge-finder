@@ -45,7 +45,12 @@ const addEntry = () => {
 };
 const getCaloriesFromInputs = (list) => {
   let calories = 0;
-  let currVal = cleanInputString(list[i].value);
-  for (let i = 0; i < list.length; i++) {}
+
+  for (let i = 0; i < list.length; i++) {
+    const currVal = cleanInputString(list[i].value);
+    const invalidInputMatch = isInvalidInput(currVal);
+    if (invalidInputMatch) {
+    }
+  }
 };
 addEntryButton.addEventListener("click", addEntry);
