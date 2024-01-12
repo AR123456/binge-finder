@@ -43,4 +43,9 @@ const addEntry = () => {
   `;
   targetInputContainer.insertAdjacentHTML("beforeend", HTMLString);
 };
+const getCaloriesFromInputs = (list) => {
+  let calories = 0;
+  let currVal = cleanInputString(list[i].value);
+  for (let i = 0; i < list.length; i++) {}
+};
 addEntryButton.addEventListener("click", addEntry);
