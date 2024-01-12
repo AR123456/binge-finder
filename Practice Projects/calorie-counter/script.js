@@ -43,6 +43,11 @@ const addEntry = () => {
   `;
   targetInputContainer.insertAdjacentHTML("beforeend", HTMLString);
 };
+function calculateCalories(e) {
+  e.preventDefault();
+  isError = false;
+}
+
 const getCaloriesFromInputs = (list) => {
   let calories = 0;
 
