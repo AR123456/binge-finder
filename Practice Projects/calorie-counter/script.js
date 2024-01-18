@@ -46,7 +46,6 @@ const addEntry = () => {
 function calculateCalories(e) {
   e.preventDefault();
   isError = false;
-
   const breakfastNumberInputs = document.querySelectorAll(
     "#breakfast input[type=number]"
   );
@@ -76,6 +75,8 @@ function calculateCalories(e) {
   const remainingCalories =
     budgetCalories - consumedCalories + exerciseCalories;
   const surplusOrDeficit = remainingCalories >= 0 ? "Surplus" : "Deficit";
+
+  output.innerHTML = `<span class="${surplusOrDeficit.toLowerCase()}"></span>`;
 }
 
 const getCaloriesFromInputs = (list) => {
