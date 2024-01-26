@@ -80,8 +80,15 @@ const allSongs = [
 
 const audio = new Audio();
 let userData = {
+  // a version of all songs that can be specific to user
   songs: [...allSongs],
   currentSong: null,
   songCurrentTime: 0,
 };
-const renderSongs = (array) => {};
+// renderSongs will loop the songs array and build the HTML
+const renderSongs = (array) => {
+  // map takes a function as an argument (callback)
+  const songsHTML = array.map((song) => {
+    return `<li id="song-${song.id}"class="playlist-song" ></li>`;
+  });
+};
