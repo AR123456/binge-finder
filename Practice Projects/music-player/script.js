@@ -85,6 +85,12 @@ let userData = {
   currentSong: null,
   songCurrentTime: 0,
 };
+// playing the songs
+const playSong = (id) => {
+  // iterate the array play first song that corresponds to id passed into playSong function
+  const song = userData?.songs.find((song) => song.id === id);
+};
+
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
   // map takes a function as an argument (callback)
