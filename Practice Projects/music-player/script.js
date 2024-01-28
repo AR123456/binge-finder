@@ -89,6 +89,8 @@ let userData = {
 const playSong = (id) => {
   // iterate the array play first song that corresponds to id passed into playSong function
   const song = userData?.songs.find((song) => song.id === id);
+  audio.src = song.src;
+  audio.title = song.title;
 };
 
 // renderSongs will loop the songs array and build the HTML
