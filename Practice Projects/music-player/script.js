@@ -100,4 +100,6 @@ const renderSongs = (array) => {
     </li>`;
     })
     .join("");
+  playlistSongs.innerHTML = songsHTML;
 };
+renderSongs(userData?.songs);
