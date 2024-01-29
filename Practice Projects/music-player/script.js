@@ -120,4 +120,5 @@ const renderSongs = (array) => {
     .join("");
   playlistSongs.innerHTML = songsHTML;
 };
+playButton.addEventListener("click", () => {});
 renderSongs(userData?.songs);
