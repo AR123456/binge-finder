@@ -99,6 +99,8 @@ const playSong = (id) => {
   }
   // update current song and play button
   userData.currentSong = song;
+  playButton.classList.add("playing");
+  audio.play();
 };
 
 // renderSongs will loop the songs array and build the HTML
