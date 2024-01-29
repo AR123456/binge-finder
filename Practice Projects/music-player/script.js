@@ -120,5 +120,9 @@ const renderSongs = (array) => {
     .join("");
   playlistSongs.innerHTML = songsHTML;
 };
-playButton.addEventListener("click", () => {});
+playButton.addEventListener("click", () => {
+  if (userData?.currentSong === null) {
+    playSong(userData?.songs[0].id);
+  }
+});
 renderSongs(userData?.songs);
