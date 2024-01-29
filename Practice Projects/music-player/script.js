@@ -97,6 +97,8 @@ const playSong = (id) => {
   } else {
     audio.currentTime = userData.songCurrentTime;
   }
+  // update current song and play button
+  userData.currentSong = song;
 };
 
 // renderSongs will loop the songs array and build the HTML
