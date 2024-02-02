@@ -127,4 +127,5 @@ playButton.addEventListener("click", () => {
     playSong(userData?.currentSong.id);
   }
 });
+const pauseSong = () => {};
 renderSongs(userData?.songs);
