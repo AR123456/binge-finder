@@ -125,6 +125,12 @@ const renderSongs = (array) => {
     .join("");
   playlistSongs.innerHTML = songsHTML;
 };
+// need to play next and previous song
+const getCurrentSongIndex = () => {
+  // index of the current song
+  return userData?.songs.indexOf(userData?.currentSong);
+};
+
 playButton.addEventListener("click", () => {
   if (userData?.currentSong === null) {
     playSong(userData?.songs[0].id);
