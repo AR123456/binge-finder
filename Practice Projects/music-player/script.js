@@ -111,6 +111,10 @@ const pauseSong = () => {
 const playNextSong = () => {
   if (userData?.currentSong === null) {
     playSong(userData?.songs[0].id);
+  } else {
+    const currentSongIndex = getCurrentSongIndex();
+    const nextSong = userData?.songs[currentSongIndex + 1];
+    playSong(nextSong.id);
   }
 };
 // renderSongs will loop the songs array and build the HTML
@@ -145,5 +149,19 @@ playButton.addEventListener("click", () => {
 });
 
 pauseButton.addEventListener("click", pauseSong);
+nextButton.addEventListener("click", playNextSong);
 
+/////////////////
+// this code was on the site but we have not written it in the lesson yet
+userData?.songs.sort((a, b) => {
+  if (a.title < b.title) {
+    return -1;
+  }
+
+  if (a.title > b.title) {
+    return 1;
+  }
+
+  return 0;
+});
 renderSongs(userData?.songs);
