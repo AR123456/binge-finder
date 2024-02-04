@@ -108,6 +108,11 @@ const pauseSong = () => {
   playButton.classList.remove("playing");
   audio.pause();
 };
+const playNextSong = () => {
+  if (userData?.currentSong === null) {
+    playSong(userData?.songs[0].id);
+  }
+};
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
   // map takes a function as an argument (callback)
