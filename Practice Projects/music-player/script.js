@@ -117,6 +117,17 @@ const playNextSong = () => {
     playSong(nextSong.id);
   }
 };
+
+const playPreviousSong = () => {
+  if (userData?.currentSong === null) {
+    return;
+  } else {
+    const currentSongIndex = getCurrentSongIndex();
+    const previousSong = userData?.songs[currentSongIndex - 1];
+    playSong(previousSong.id);
+  }
+};
+
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
   // map takes a function as an argument (callback)
@@ -150,6 +161,7 @@ playButton.addEventListener("click", () => {
 
 pauseButton.addEventListener("click", pauseSong);
 nextButton.addEventListener("click", playNextSong);
+previousButton.addEventListener("click", playPreviousSong);
 
 /////////////////
 // this code was on the site but we have not written it in the lesson yet
