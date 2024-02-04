@@ -102,7 +102,12 @@ const playSong = (id) => {
   playButton.classList.add("playing");
   audio.play();
 };
-
+// pause
+const pauseSong = () => {
+  userData.songCurrentTime = audio.currentTime;
+  playButton.classList.remove("playing");
+  audio.pause();
+};
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
   // map takes a function as an argument (callback)
@@ -127,9 +132,7 @@ playButton.addEventListener("click", () => {
     playSong(userData?.currentSong.id);
   }
 });
-const pauseSong = () => {
-  userData.songCurrentTime = audio.currentTime;
-  playButton.classList.remove("playing");
-  audio.pause();
-};
+
+pauseButton.addEventListener("click", pauseSong);
+
 renderSongs(userData?.songs);
