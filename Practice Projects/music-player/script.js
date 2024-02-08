@@ -100,6 +100,7 @@ const playSong = (id) => {
   // update current song and play button
   userData.currentSong = song;
   playButton.classList.add("playing");
+  highlightCurrentSong();
   audio.play();
 };
 // pause
@@ -127,7 +128,23 @@ const playPreviousSong = () => {
     playSong(previousSong.id);
   }
 };
-
+// display current song title and artist
+const setPlayerDisplay = () => {
+  const playingSong = document.getElementById("player-song-title");
+  const songArtist = document.getElementById("player-song-artist");
+};
+const highlightCurrentSong = () => {
+  const playlistSongElements = document.querySelectorAll(".playlist-song");
+  const songToHighlight = document.getElementById(
+    `song-${userData?.currentSong?.id}`
+  );
+  playlistSongElements.forEach((songEl) => {
+    songEl.removeAttribute("aria-current");
+  });
+  if (songToHighlight) {
+    songToHighlight.setAttribute("aria-current", "true");
+  }
+};
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
   // map takes a function as an argument (callback)
