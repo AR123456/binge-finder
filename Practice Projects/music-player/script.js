@@ -100,6 +100,7 @@ const playSong = (id) => {
   // update current song and play button
   userData.currentSong = song;
   playButton.classList.add("playing");
+  highlightCurrentSong();
   audio.play();
 };
 // pause
@@ -132,6 +133,12 @@ const highlightCurrentSong = () => {
   const songToHighlight = document.getElementById(
     `song-${userData?.currentSong?.id}`
   );
+  playlistSongElements.forEach((songEl) => {
+    songEl.removeAttribute("aria-current");
+  });
+  if (songToHighlight) {
+    songToHighlight.setAttribute("aria-current", "true");
+  }
 };
 // renderSongs will loop the songs array and build the HTML
 const renderSongs = (array) => {
