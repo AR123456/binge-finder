@@ -133,6 +133,13 @@ const playPreviousSong = () => {
 const shuffle = () => {
   // way to randomize an array of items subtract 0.5 from Math.random() which produces random values that arepositive or negative.  makes the comparison result  mix of positive and negative values, leading to a random ordering of elements.
   userData?.songs.sort(() => Math.random() - 0.5);
+  // no ?. optional chaining because explecitly setting
+  userData.currentSong = null;
+  userData.songCurrentTime = 0;
+  renderSongs(userData?.songs);
+  pauseSong();
+  setPlayerDisplay();
+  setPlayButtonAccessibleText();
 };
 // display current song title and artist
 const setPlayerDisplay = () => {
