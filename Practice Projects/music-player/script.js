@@ -101,7 +101,6 @@ const playSong = (id) => {
   userData.currentSong = song;
   playButton.classList.add("playing");
   highlightCurrentSong();
-  setPlayerDisplay();
   audio.play();
 };
 // pause
@@ -168,16 +167,6 @@ const renderSongs = (array) => {
     .join("");
   playlistSongs.innerHTML = songsHTML;
 };
-const setPlayButtonAccessibleText = () => {
-  // This function will set the aria-label attribute to the current song, or to the first song in the playlist. And if the playlist is empty, it sets the aria-label to "Play".
-  // get first song or currently playing
-  const song = userData?.currentSong || userData?.songs[0];
-  playButton.setAttribute(
-    "aria-label",
-    song?.title ? `Play ${song.title}` : "Play"
-  );
-};
-
 // need to play next and previous song
 const getCurrentSongIndex = () => {
   // index of the current song
