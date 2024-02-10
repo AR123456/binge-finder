@@ -102,6 +102,7 @@ const playSong = (id) => {
   playButton.classList.add("playing");
   highlightCurrentSong();
   setPlayerDisplay();
+  setPlayButtonAccessibleText();
   audio.play();
 };
 // pause
@@ -128,6 +129,10 @@ const playPreviousSong = () => {
     const previousSong = userData?.songs[currentSongIndex - 1];
     playSong(previousSong.id);
   }
+};
+const shuffle = () => {
+  // way to randomize an array of items subtract 0.5 from Math.random() which produces random values that arepositive or negative.  makes the comparison result  mix of positive and negative values, leading to a random ordering of elements.
+  userData?.songs.sort(() => Math.random() - 0.5);
 };
 // display current song title and artist
 const setPlayerDisplay = () => {
@@ -170,6 +175,12 @@ const renderSongs = (array) => {
 };
 const setPlayButtonAccessibleText = () => {
   // This function will set the aria-label attribute to the current song, or to the first song in the playlist. And if the playlist is empty, it sets the aria-label to "Play".
+  // get first song or currently playing
+  const song = userData?.currentSong || userData?.songs[0];
+  playButton.setAttribute(
+    "aria-label",
+    song?.title ? `Play ${song.title}` : "Play"
+  );
 };
 
 // need to play next and previous song
