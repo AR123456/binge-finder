@@ -207,7 +207,7 @@ playButton.addEventListener("click", () => {
 pauseButton.addEventListener("click", pauseSong);
 nextButton.addEventListener("click", playNextSong);
 previousButton.addEventListener("click", playPreviousSong);
-
+shuffleButton.addEventListener("click", shuffle);
 /////////////////
 // this code was on the site but we have not written it in the lesson yet
 userData?.songs.sort((a, b) => {
