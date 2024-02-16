@@ -143,7 +143,19 @@ const shuffle = () => {
 };
 // handle deleting song from playlist - create reset playlist button
 const deleteSong = (id) => {
+  // if the song being deleted is current song pause it
+  if (userData?.currentSong?.id === id) {
+    userData.currentSong = null;
+    userData.songCurrentTime = 0;
+    pauseSong();
+    setPlayerDisplay();
+  }
+  //filtering out the deleted song
   userData.songs = userData?.songs.filter((song) => song.id !== id);
+  //song list has changed
+  renderSongs(userData?.songs);
+  highlightCurrentSong();
+  setPlayButtonAccessibleText();
 };
 
 // display current song title and artist
