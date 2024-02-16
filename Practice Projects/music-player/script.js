@@ -156,6 +156,9 @@ const deleteSong = (id) => {
   renderSongs(userData?.songs);
   highlightCurrentSong();
   setPlayButtonAccessibleText();
+  // if the playlist is empty, reset userData
+  if (userData?.songs.length === 0) {
+  }
 };
 
 // display current song title and artist
