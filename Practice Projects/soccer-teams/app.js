@@ -179,5 +179,5 @@ const myFavoriteFootballTeam = {
 };
 // Ensure the players object cannot be modified
 Object.freeze(myFavoriteFootballTeam);
-const sport = myFavoriteFootballTeam.sport;
-const team = myFavoriteFootballTeam.team;
+// destucture way
+const { sport, team, year, players } = myFavoriteFootballTeam;
