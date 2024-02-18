@@ -177,4 +177,5 @@ const myFavoriteFootballTeam = {
     },
   ],
 };
-//
+// Ensure the players object cannot be modified
+Object.freeze(myFavoriteFootballTeam);
