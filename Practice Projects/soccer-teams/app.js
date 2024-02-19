@@ -182,3 +182,4 @@ Object.freeze(myFavoriteFootballTeam);
 // destucture way
 const { sport, team, year, players } = myFavoriteFootballTeam;
 const { coachName } = myFavoriteFootballTeam.headCoach;
+typeOfSport.textContent = sport;
