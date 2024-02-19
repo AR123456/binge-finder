@@ -187,4 +187,4 @@ teamName.textContent = team;
 worldCupYear.textContent = year;
 headCoach.textContent = coachName;
 // display from drop down menu
-const setPlayerCards = () => {};
+const setPlayerCards = (arr = players) => {};
