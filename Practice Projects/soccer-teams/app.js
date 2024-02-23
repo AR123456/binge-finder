@@ -203,13 +203,11 @@ const setPlayerCards = (arr = players) => {
 };
 playersDropdownList.addEventListener("change", (e) => {
   playerCards.innerHTML = "";
-  switch (
-    e.target.value
-    // case value:
-    //   break;
+  switch (e.target.value) {
+    case "nickname":
+      break;
 
-    // default:
-    //   break;
-  ) {
+    default:
+      break;
   }
 });
