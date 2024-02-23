@@ -1,3 +1,5 @@
+const { log } = require("console");
+
 const teamName = document.getElementById("team");
 const typeOfSport = document.getElementById("sport");
 const worldCupYear = document.getElementById("year");
@@ -199,4 +201,6 @@ const setPlayerCards = (arr = players) => {
     })
     .join("");
 };
-playersDropdownList.addEventListener("change", () => {});
+playersDropdownList.addEventListener("change", (e) => {
+  playerCards.innerHTML = "";
+});
