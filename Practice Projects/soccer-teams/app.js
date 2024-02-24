@@ -29,13 +29,6 @@ const myFavoriteFootballTeam = {
       nickname: null,
     },
     {
-      name: "Sergio Batista",
-      position: "midfielder",
-      number: 2,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
       name: "Ricardo Bochini",
       position: "midfielder",
       number: 3,
@@ -177,7 +170,6 @@ const myFavoriteFootballTeam = {
     },
   ],
 };
-// Ensure the players object cannot be modified
 Object.freeze(myFavoriteFootballTeam);
 // destucture way
 const { sport, team, year, players } = myFavoriteFootballTeam;
@@ -187,18 +179,34 @@ teamName.textContent = team;
 worldCupYear.textContent = year;
 headCoach.textContent = coachName;
 // display from drop down menu
+// const setPlayerCards = (arr = players) => {
+//   playerCards.innerHTML += arr
+//     .map(({ name, position, number, isCaptain, nickname }) => {
+//       `<div class="player-card">
+//       <h2>${name}${isCaptain ? "(Captain)" : ""}</h2>
+//       <p>Position: ${position}</p>
+//       <p>Number: ${number}</p>
+//       <p>Nickname: ${nickname ? nickname : "N/A"}</p>
+//       </div>`;
+//     })
+//     .join("");
+// };
 const setPlayerCards = (arr = players) => {
   playerCards.innerHTML += arr
-    .map(({ name, position, number, isCaptain, nickname }) => {
-      `<div class="player-card">
-      <h2>${name}${isCaptain ? "(Captain)" : ""}</h2>
-      <p>Position: ${position}</p>
-      <p>Number: ${number}</p>
-      <p>Nickname: ${nickname ? nickname : "N/A"}</p>
-      </div>`;
-    })
+    .map(
+      ({ name, position, number, isCaptain, nickname }) =>
+        `
+        <div class="player-card">
+          <h2>${name} ${isCaptain ? "(Captain)" : ""}</h2>
+          <p>Position: ${position}</p>
+          <p>Number: ${number}</p>
+          <p>Nickname: ${nickname !== null ? nickname : "N/A"}</p>
+        </div>
+      `
+    )
     .join("");
 };
+
 playersDropdownList.addEventListener("change", (e) => {
   playerCards.innerHTML = "";
   switch (e.target.value) {
