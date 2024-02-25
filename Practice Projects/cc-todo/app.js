@@ -14,5 +14,9 @@ const descriptionInput = document.getElementById("description-input");
 const taskData = [];
 // track state while editing and discarding tasks
 let currentTask = {};
+// toggle the form model div open and closed
+openTaskFormBtn.addEventListener("click", () => {
+  taskForm.classList.toggle("hidden");
+});
 
 // local storage key value pairs
