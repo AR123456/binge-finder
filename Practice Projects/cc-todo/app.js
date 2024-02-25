@@ -20,3 +20,6 @@ openTaskFormBtn.addEventListener("click", () => {
 });
 
 // local storage key value pairs
+closeTaskFormBtn.addEventListener("click", () => {
+  confirmCloseDialog.showModal();
+});
