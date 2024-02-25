@@ -10,5 +10,9 @@ const tasksContainer = document.getElementById("tasks-container");
 const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
 const descriptionInput = document.getElementById("description-input");
+//store tasks , title, due date and descriptions
+const taskData = [];
+// track state while editing and discarding tasks
+let currentTask = {};
 
 // local storage key value pairs
