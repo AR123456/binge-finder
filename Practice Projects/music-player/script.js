@@ -244,10 +244,10 @@ shuffleButton.addEventListener("click", shuffle);
 // listen for end of song,play next
 audio.addEventListener("ended", () => {
   const currentSongIndex = getCurrentSongIndex();
-  if (userData.songs.length - 1 > currentSongIndex) {
-    let nextSongExists = true;
-  } else {
-    let nextSongExists = false;
+  // ans step 87
+  const nextSongExists = userData?.songs[currentSongIndex + 1] !== undefined;
+  if (nextSongExists) {
+    playNextSong();
   }
 });
 /////////////////
