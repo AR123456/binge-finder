@@ -241,6 +241,15 @@ pauseButton.addEventListener("click", pauseSong);
 nextButton.addEventListener("click", playNextSong);
 previousButton.addEventListener("click", playPreviousSong);
 shuffleButton.addEventListener("click", shuffle);
+// listen for end of song,play next
+audio.addEventListener("ended", () => {
+  const currentSongIndex = getCurrentSongIndex();
+  if (userData.songs.length - 1 > currentSongIndex) {
+    let nextSongExists = true;
+  } else {
+    let nextSongExists = false;
+  }
+});
 /////////////////
 // this code was on the site but we have not written it in the lesson yet
 userData?.songs.sort((a, b) => {
