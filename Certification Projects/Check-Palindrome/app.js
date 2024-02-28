@@ -2,18 +2,22 @@ const input = document.querySelector("#text-input");
 const button = document.querySelector("#check-btn");
 const result = document.querySelector("#result");
 
-const checkForPalindrome = (e) => {
+const checkForPalindrome = () => {
   if (input.value === "") {
     alert("Please input a value");
   } else {
     // remove any non alphabet characters from the input
-    cleanInput = input.value.toLowerCase().replace(/[^a-z]/g, "");
+    cleanInput = input.value
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z]/g, "");
 
     if (cleanInput === "a") {
-      console.log("A is a palindrome");
+      result.innerHTML = `${input.value} is a palindrome`;
+    } else if (cleanInput === cleanInput.split("").reverse().join("")) {
+      result.innerHTML = `${input.value} is a palindrome`;
     } else {
-      //  Code Camp palindrome checker   https://www.freecodecamp.org/news/two-ways-to-check-for-palindromes-in-javascript-64fea8191fd7/
-      // check for palindrome
+      result.innerHTML = `${input.value} is not palindrome`;
     }
   }
 };
