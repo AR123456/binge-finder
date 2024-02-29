@@ -20,6 +20,7 @@ const checkForPalindrome = () => {
       result.innerHTML = `${input.value} is not palindrome`;
     }
   }
+  input.value = "";
 };
 
 button.addEventListener("click", checkForPalindrome);
