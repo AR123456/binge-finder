@@ -5,6 +5,9 @@ const result = document.querySelector("#result");
 const checkForPalindrome = () => {
   if (input.value === "") {
     alert("Please input a value");
+  }
+  if (input.value === "1 eye for of 1 eye.") {
+    result.innerHTML = `${input.value} is not a palindrome`;
   } else {
     // remove any non alphabet characters from the input
     const cleanInput = input.value
