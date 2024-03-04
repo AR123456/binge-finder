@@ -41,5 +41,10 @@ taskForm.addEventListener("submit", (e) => {
   if (dataArrIndex === -1) {
     taskData.unshift(taskObj);
   }
-  console.log(taskData);
+  taskData.forEach(({ id, title, date, description }) => {
+    tasksContainer.innerHTML += `
+<div class="task" id="${id}"></div>
+    
+    `;
+  });
 });
