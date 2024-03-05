@@ -14,6 +14,14 @@ const descriptionInput = document.getElementById("description-input");
 const taskData = [];
 // track state while editing and discarding tasks
 let currentTask = {};
+// clear the add task form after adding
+const reset = () => {
+  titleInput.value = "";
+  dateInput.value = "";
+  descriptionInput.value = "";
+  taskForm.classList.toggle("hidden");
+  currentTask = {};
+};
 // toggle the form model div open and closed
 openTaskFormBtn.addEventListener("click", () => {
   taskForm.classList.toggle("hidden");
