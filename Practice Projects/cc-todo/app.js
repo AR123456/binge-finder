@@ -44,6 +44,14 @@ const updateTaskContainer = () => {
         `;
   });
 };
+// delete task function
+const deleteTask = (buttonEl) => {
+  // getting index of task to del
+  const dataArrIndex = taskData.findIndex(
+    (item) => item.id === buttonEl.parentElement.id
+  );
+};
+
 // clear the add task form after adding
 const reset = () => {
   titleInput.value = "";
