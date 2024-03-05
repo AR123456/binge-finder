@@ -50,8 +50,17 @@ const deleteTask = (buttonEl) => {
   const dataArrIndex = taskData.findIndex(
     (item) => item.id === buttonEl.parentElement.id
   );
+  // remove from dom, and from task data array
+  buttonEl.parentElement.remove();
+  taskData.splice(dataArrIndex, 1);
 };
-
+// edit a task
+const editTask = (buttonEl) => {
+  // get index of task to edit
+  const dataArrIndex = taskData.findIndex(
+    (item) => item.id === buttonEl.parentElement.id
+  );
+};
 // clear the add task form after adding
 const reset = () => {
   titleInput.value = "";
