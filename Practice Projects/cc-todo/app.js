@@ -88,7 +88,13 @@ closeTaskFormBtn.addEventListener("click", () => {
   // display cancel and discard only if some text is present
   const formInputsContainValues =
     titleInput.value || dateInput.value || descriptionInput.value;
-  if (formInputsContainValues) {
+
+  const formInputValuesUpdated =
+    titleInput.value !== currentTask.title ||
+    dateInput.value !== currentTask.date ||
+    descriptionInput.value !== currentTask.description;
+
+  if (formInputsContainValues && formInputValuesUpdated) {
     confirmCloseDialog.showModal();
   } else {
     reset();
