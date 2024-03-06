@@ -16,6 +16,7 @@ const taskData = [];
 let currentTask = {};
 //add input values to taskData
 const addOrUpdateTask = () => {
+  addOrUpdateTaskBtn.innerText = "Add Task";
   const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
   const taskObj = {
     id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,
@@ -25,6 +26,9 @@ const addOrUpdateTask = () => {
   };
   if (dataArrIndex === -1) {
     taskData.unshift(taskObj);
+  } else {
+    // editing
+    taskData[dataArrIndex] = taskObj;
   }
   updateTaskContainer();
   reset();
@@ -65,6 +69,7 @@ const editTask = (buttonEl) => {
   dateInput.value = currentTask.date;
   descriptionInput.value = currentTask.description;
   addOrUpdateTaskBtn.innerText = "Update Task";
+  taskForm.classList.toggle("hidden");
 };
 // clear the add task form after adding
 const reset = () => {
