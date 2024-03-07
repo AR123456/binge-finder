@@ -30,6 +30,8 @@ const addOrUpdateTask = () => {
     // editing
     taskData[dataArrIndex] = taskObj;
   }
+  // add to local storage
+  localStorage.setItem("data", JSON.stringify(taskData));
   updateTaskContainer();
   reset();
 };
