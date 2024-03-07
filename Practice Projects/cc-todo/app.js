@@ -30,8 +30,6 @@ const addOrUpdateTask = () => {
     // editing
     taskData[dataArrIndex] = taskObj;
   }
-  // add to local storage
-  localStorage.setItem("data", JSON.stringify(taskData));
   updateTaskContainer();
   reset();
 };
@@ -59,9 +57,6 @@ const deleteTask = (buttonEl) => {
   // remove from dom, and from task data array
   buttonEl.parentElement.remove();
   taskData.splice(dataArrIndex, 1);
-  // to del from local storage - can save step of removing from local storage
-  // because .splice removed the deleted task from taskData just save it again to local storage
-  localStorage.setItem("data", JSON.stringify(taskData));
 };
 // edit a task
 const editTask = (buttonEl) => {
