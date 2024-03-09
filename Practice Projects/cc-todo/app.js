@@ -11,7 +11,7 @@ const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
 const descriptionInput = document.getElementById("description-input");
 //store tasks , title, due date and descriptions
-const taskData = [];
+const taskData = JSON.parse(localStorage.getItem("data")) || [];
 // track state while editing and discarding tasks
 let currentTask = {};
 //add input values to taskData
@@ -59,6 +59,9 @@ const deleteTask = (buttonEl) => {
   // remove from dom, and from task data array
   buttonEl.parentElement.remove();
   taskData.splice(dataArrIndex, 1);
+  // to del from local storage - can save step of removing from local storage
+  // because .splice removed the deleted task from taskData just save it again to local storage
+  localStorage.setItem("data", JSON.stringify(taskData));
 };
 // edit a task
 const editTask = (buttonEl) => {
@@ -81,6 +84,11 @@ const reset = () => {
   taskForm.classList.toggle("hidden");
   currentTask = {};
 };
+// length of 0 is falsy so check the array length
+if (taskData.length !== 0) {
+  updateTaskContainer();
+}
+
 // toggle the form model div open and closed
 openTaskFormBtn.addEventListener("click", () => {
   taskForm.classList.toggle("hidden");
