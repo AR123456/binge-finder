@@ -7,18 +7,9 @@ const decimalToBinary = (input) => {
     return "";
   } else {
     // the recursive case
-    return decimalToBinary(Math.floor(input / 2));
+    // return decimalToBinary(Math.floor(input / 2) + (Math.floor(input / 2) % 2));
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
   }
-
-  // let binary = "";
-  // if (input === 0) {
-  //   binary = "0";
-  // }
-  // result.innerText = binary;
-  // while (input > 0) {
-  //   input = Math.floor(input / 2);
-  //   binary = (input % 2) + binary;
-  // }
 };
 
 const checkUserInput = () => {
