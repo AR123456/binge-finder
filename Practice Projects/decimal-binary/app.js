@@ -7,8 +7,7 @@ const decimalToBinary = (input) => {
     return "";
   } else {
     // the recursive case
-    // return decimalToBinary(Math.floor(input / 2) + (Math.floor(input / 2) % 2));
-    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+    return decimalToBinary(Math.floor(input / 2) + (Math.floor(input / 2) % 2));
   }
 };
 
