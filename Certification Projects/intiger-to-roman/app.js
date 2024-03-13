@@ -4,19 +4,27 @@ const convertBtn = document.getElementById("convert-btn");
 const output = document.getElementById("output");
 
 const validateUserInput = () => {
+  if (!numberInput.value) {
+    output.classList.remove("hidden");
+    output.innerText = "Please enter a valid number";
+    return;
+  }
   // check for number
-  if (!numberInput.value || isNaN(parseInt(numberInput.value))) {
-    alert("Please enter a valid number");
+  if (isNaN(parseInt(numberInput.value))) {
+    output.classList.remove("hidden");
+    output.innerText = "Please enter a valid number";
     return;
   }
   // check for positive number
   if (numberInput.value < 1) {
-    alert("Please enter a number greater than or = 1 ");
+    output.classList.remove("hidden");
+    output.innerText = "Please enter a number greater than or equal to 1";
     return;
   }
   // check that number is no more than 4000
   if (numberInput.value > 3999) {
-    alert("Please enter a number less than or equal to 3999");
+    output.classList.remove("hidden");
+    output.innerText = "Please enter a number less than or equal to 3999";
     return;
   }
   const raw = numberInput.value;
@@ -24,29 +32,47 @@ const validateUserInput = () => {
 };
 const convertToRoman = (raw) => {
   console.log(raw);
-  switch (raw) {
-    case (raw = 1):
-      console.log("I");
-      break;
-    case "9":
-      console.log("IX");
-      break;
-    case "16":
-      console.log("XVI");
-      break;
-    case "649":
-      console.log("DCXLIX");
-      break;
-    case "1023":
-      console.log("MXXIII");
-      break;
-    case "3999":
-      console.log("MMMCMXCIX");
-      break;
+  var digits = String(+raw).split(""),
+    key = [
+      "",
+      "C",
+      "CC",
+      "CCC",
+      "CD",
+      "D",
+      "DC",
+      "DCC",
+      "DCCC",
+      "CM",
+      "",
+      "X",
+      "XX",
+      "XXX",
+      "XL",
+      "L",
+      "LX",
+      "LXX",
+      "LXXX",
+      "XC",
+      "",
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX",
+    ],
+    roman = "",
+    i = 3;
+  while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
 
-    default:
-      break;
-  }
+  console.log(Array(+digits.join("") + 1).join("M") + roman);
+  outputForDisplay = Array(+digits.join("") + 1).join("M") + roman;
+  output.classList.remove("hidden");
+  output.innerText = outputForDisplay;
 };
 convertBtn.addEventListener("click", validateUserInput);
 numberInput.addEventListener("keydown", (e) => {
