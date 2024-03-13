@@ -10,11 +10,15 @@ const decimalToBinary = (input) => {
     return decimalToBinary(Math.floor(input / 2)) + (input % 2);
   }
 };
-
+const showAnimation = () => {};
 const checkUserInput = () => {
   // checking for empty string which is faulsy, or not an integer with parseInt wrapped in isNaN
   if (!numberInput.value || isNaN(parseInt(numberInput.value))) {
     alert("Please provide a decimal number");
+    return;
+  }
+  if (parseInt(numberInput.value) === 5) {
+    showAnimation();
     return;
   }
   result.textContent = decimalToBinary(parseInt(numberInput.value));
