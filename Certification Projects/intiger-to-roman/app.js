@@ -70,7 +70,7 @@ const convertToRoman = (raw) => {
   while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
 
   console.log(Array(+digits.join("") + 1).join("M") + roman);
-  outputForDisplay = Array(+digits.join("") + 1).join("M") + roman;
+  const outputForDisplay = Array(+digits.join("") + 1).join("M") + roman;
   output.classList.remove("hidden");
   output.innerText = outputForDisplay;
 };
