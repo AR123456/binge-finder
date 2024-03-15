@@ -10,18 +10,26 @@ const decimalToBinary = (input) => {
     return decimalToBinary(Math.floor(input / 2)) + (input % 2);
   }
 };
-const showAnimation = () => {};
+const showAnimation = () => {
+  setTimeout(() => {
+    console.log("free");
+  }, 500);
+  setTimeout(() => {
+    console.log("Code");
+  }, 3000);
+  console.log("Camp");
+};
 const checkUserInput = () => {
-  // checking for empty string which is faulsy, or not an integer with parseInt wrapped in isNaN
-  if (!numberInput.value || isNaN(parseInt(numberInput.value))) {
+  const inputInt = parseInt(numberInput.value);
+  if (!numberInput.value || isNaN(inputInt)) {
     alert("Please provide a decimal number");
     return;
   }
-  if (parseInt(numberInput.value) === 5) {
+  if (inputInt === 5) {
     showAnimation();
     return;
   }
-  result.textContent = decimalToBinary(parseInt(numberInput.value));
+  result.textContent = decimalToBinary(inputInt);
 
   numberInput.value = "";
 };
