@@ -4,10 +4,22 @@
 const global = {
   currentPage: window.location.pathname,
 };
-// Init App setting up the dyi router with switch statement
+
+// highlight active link
+function highlightActiveLink() {
+  const links = document.querySelectorAll(".nav-link");
+  links.forEach((link) => {
+    if (link.getAttribute("href") === global.currentPage) {
+      link.classList.add("active");
+    }
+  });
+}
+
+// setting up the dyi router with switch statement
 function init() {
   switch (global.currentPage) {
     case "/":
+    case "/index.html":
       console.log("Home");
       break;
     case "/shows.html":
@@ -23,6 +35,8 @@ function init() {
       console.log("tv d");
       break;
   }
+  // init runs on every page so calling here
+  highlightActiveLink();
 }
 
 // when dom content is loaded run this
