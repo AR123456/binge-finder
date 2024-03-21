@@ -9,23 +9,25 @@ const moviesForGrid = document.getElementById("popular-movies");
 // display (popular ) movies- add this to the DYI router
 async function displayPopularMovies() {
   const { results } = await fetchAPIData("movie/popular");
-  console.log(results[0]);
-  results.forEach((result) => {
+  // console.log(results[0].backdrop_path.substring(1));
+  results.forEach((movie) => {
     // display a card for each result
-    ` <div class="card">
+    const div = document.createElement("div");
+    div.classList.add("card");
+    div.innerHTML = `  
   <a href="movie-details.html?id=1">
     <img
-      src="${result.backdrop_path}"
+      src="${movie.backdrop_path.substring(1)}"
       class="card-img-top"
-      alt="${title}"
+      alt="${movie.title}"
     />
   </a>
   <div class="card-body">
-    <h5 class="card-title">${title}</h5>
+    <h5 class="card-title">${movie.title}</h5>
     <p class="card-text">
-      <small class="text-muted">Release: ${release_date}</small>
+      <small class="text-muted">Release: ${movie.release_date}</small>
     </p>
-  </div>
+ 
 </div>`;
   });
 }
