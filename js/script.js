@@ -5,7 +5,7 @@ import { API_KEY } from "../env.js";
 const global = {
   currentPage: window.location.pathname,
 };
-const moviesForGrid = document.getElementById("popular-movies");
+
 // display (popular ) movies- add this to the DYI router
 async function displayPopularMovies() {
   const { results } = await fetchAPIData("movie/popular");
@@ -15,12 +15,21 @@ async function displayPopularMovies() {
     const div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `  
-  <a href="movie-details.html?id=1">
-    <img
-      src="${movie.backdrop_path.substring(1)}"
-      class="card-img-top"
-      alt="${movie.title}"
-    />
+  <a href="movie-details.html?id=${movie.id}">
+
+  ${
+    movie.poster_path
+      ? `<img
+    src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
+    class="card-img-top"
+    alt="${movie.title}"
+  />`
+      : `    <img
+  src="../images/no-image.jpg"
+  class="card-img-top"
+  alt="${movie.title}"
+/>`
+  }
   </a>
   <div class="card-body">
     <h5 class="card-title">${movie.title}</h5>
@@ -29,6 +38,7 @@ async function displayPopularMovies() {
     </p>
  
 </div>`;
+    document.querySelector("#popular-movies").appendChild(div);
   });
 }
 
