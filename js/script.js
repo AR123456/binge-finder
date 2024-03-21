@@ -5,11 +5,29 @@ import { API_KEY } from "../env.js";
 const global = {
   currentPage: window.location.pathname,
 };
+const moviesForGrid = document.getElementById("popular-movies");
 // display (popular ) movies- add this to the DYI router
 async function displayPopularMovies() {
   const { results } = await fetchAPIData("movie/popular");
-  // console.log(results);
-  // display a card for each result
+  console.log(results[0]);
+  results.forEach((result) => {
+    // display a card for each result
+    ` <div class="card">
+  <a href="movie-details.html?id=1">
+    <img
+      src="${result.backdrop_path}"
+      class="card-img-top"
+      alt="${title}"
+    />
+  </a>
+  <div class="card-body">
+    <h5 class="card-title">${title}</h5>
+    <p class="card-text">
+      <small class="text-muted">Release: ${release_date}</small>
+    </p>
+  </div>
+</div>`;
+  });
 }
 
 // Fetch data from TMDB API note   IRL this would be on the server
