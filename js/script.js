@@ -5,9 +5,16 @@ import { API_KEY } from "../env.js";
 const global = {
   currentPage: window.location.pathname,
 };
+// display (popular ) movies- add this to the DYI router
+async function displayPopularMovies() {
+  const { results } = await fetchAPIData("movie/popular");
+  // console.log(results);
+  // display a card for each result
+}
+
 // Fetch data from TMDB API note   IRL this would be on the server
 async function fetchAPIData(endpoint) {
-  const API_URL = "https//api.themoviedb.org/3/";
+  const API_URL = "https://api.themoviedb.org/3/";
 
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
@@ -31,7 +38,7 @@ function init() {
   switch (global.currentPage) {
     case "/":
     case "/index.html":
-      console.log("Home");
+      displayPopularMovies();
       break;
     case "/shows.html":
       console.log("Show");
