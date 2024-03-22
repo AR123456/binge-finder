@@ -86,17 +86,25 @@ async function displayMovieDetails() {
   div.innerHTML = `   
   <div class="details-top">
     <div>
-      <img
-        src="${movie.poster_path}"
-        class="card-img-top"
-        alt="${movie.title}"
-      />
+    ${
+      movie.poster_path
+        ? `<img
+      src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
+      class="card-img-top"
+      alt="${movie.title}"
+    />`
+        : `    <img
+    src="../images/no-image.jpg"
+    class="card-img-top"
+    alt="${movie.title}"
+  />`
+    }
     </div>
     <div>
       <h2>Movie Title</h2>
       <p>
         <i class="fas fa-star text-primary"></i>
-        8 / 10
+       ${movie.vote_average.toFixed(1)} / 10
       </p>
       <p class="text-muted">Release Date: ${movie.release_date}</p>
       <p>
@@ -104,13 +112,13 @@ async function displayMovieDetails() {
       </p>
       <h5>Genres</h5>
       <ul class="list-group">
-      
-        <li>${movie.genres[0].name}</li>
-        <li>${movie.genres[1].name}</li>
-        <li>${movie.genres[2].name}</li>
+      ${movie.genres.map((genre) => `<li>${genre.name}</li>`).join("")}
+   
      
       </ul>
-      <a href="${movie.homepage}" target="_blank" class="btn">Visit Movie Homepage</a>
+      <a href="${
+        movie.homepage
+      }" target="_blank" class="btn">Visit Movie Homepage</a>
     </div>
   </div>
   <div class="details-bottom">
@@ -118,11 +126,15 @@ async function displayMovieDetails() {
     <ul>
       <li><span class="text-secondary">Budget:</span> $${movie.budget}</li>
       <li><span class="text-secondary">Revenue:</span> $${movie.revenue}</li>
-      <li><span class="text-secondary">Runtime:</span> ${movie.runtime} minutes</li>
+      <li><span class="text-secondary">Runtime:</span> ${
+        movie.runtime
+      } minutes</li>
       <li><span class="text-secondary">Status:</span> ${movie.status}</li>
     </ul>
     <h4>Production Companies</h4>
-    <div class="list-group">${movie.production_companies[0].name}, ${movie.production_companies[1].name}</div>
+    <div class="list-group">${movie.production_companies[0].name}, ${
+    movie.production_companies[1].name
+  }</div>
   
 </div>`;
   document.querySelector("#movie-details").appendChild(div);
