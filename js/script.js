@@ -56,19 +56,19 @@ async function displayPopularShows() {
       ? `<img
     src="https://image.tmdb.org/t/p/w500${show.poster_path}"
     class="card-img-top"
-    alt="${show.title}"
+    alt="${show.name}"
   />`
       : `    <img
   src="../images/no-image.jpg"
   class="card-img-top"
-  alt="${show.title}"
+  alt="${show.name}"
 />`
   }
   </a>
   <div class="card-body">
-    <h5 class="card-title">${show.title}</h5>
+    <h5 class="card-title">${show.name}</h5>
     <p class="card-text">
-      <small class="text-muted">Release: ${show.release_date}</small>
+      <small class="text-muted">Air Date: ${show.first_air_date}</small>
     </p>
 
 </div>`;
@@ -102,7 +102,7 @@ async function displayMovieDetails() {
     }
     </div>
     <div>
-      <h2>Movie Title</h2>
+      <h2>${movie.title}</h2>
       <p>
         <i class="fas fa-star text-primary"></i>
        ${movie.vote_average.toFixed(1)} / 10
@@ -146,9 +146,9 @@ async function displayShowDetails() {
   //?id=763215 split at = sign to get number get value a index 1
   const showId = window.location.search.split("=")[1];
 
-  const show = await fetchAPIData(`movie/${showId}`);
+  const show = await fetchAPIData(`tv/${showId}`);
   //Overlay for background image- path from API
-  displayBackgroundImage("movie", show.backdrop_path);
+  displayBackgroundImage("tv", show.backdrop_path);
   const div = document.createElement("div");
   div.innerHTML = `   
   <div class="details-top">
@@ -158,22 +158,22 @@ async function displayShowDetails() {
         ? `<img
       src="https://image.tmdb.org/t/p/w500${show.poster_path}"
       class="card-img-top"
-      alt="${show.title}"
+      alt="${show.name}"
     />`
         : `    <img
     src="../images/no-image.jpg"
     class="card-img-top"
-    alt="${show.title}"
+    alt="${show.name}"
   />`
     }
     </div>
     <div>
-      <h2>Movie Title</h2>
+      <h2>${show.name}</h2>
       <p>
         <i class="fas fa-star text-primary"></i>
        ${show.vote_average.toFixed(1)} / 10
       </p>
-      <p class="text-muted">Release Date: ${show.release_date}</p>
+      <p class="text-muted">Last Air Date: ${show.last_air_date}</p>
       <p>
         ${show.overview}
       </p>
@@ -189,15 +189,14 @@ async function displayShowDetails() {
   <div class="details-bottom">
     <h2>Movie Info</h2>
     <ul>
-      <li><span class="text-secondary">Budget:</span> $${addCommasToNumber(
-        show.budget
-      )}</li>
-      <li><span class="text-secondary">Revenue:</span> $${addCommasToNumber(
-        show.revenue
-      )}</li>
-      <li><span class="text-secondary">Runtime:</span> ${
-        show.runtime
-      } minutes</li>
+      <li><span class="text-secondary">Number of Episodes:</span> ${
+        show.number_of_episodes
+      }
+      </li>
+      <li><span class="text-secondary">Last Episode to Air:</span> ${
+        show.last_episode_to_air.name
+      }</li>
+ 
       <li><span class="text-secondary">Status:</span> ${show.status}</li>
     </ul>
     <h4>Production Companies</h4>
@@ -206,7 +205,7 @@ async function displayShowDetails() {
       .join(", ")}</div>
   
 </div>`;
-  document.querySelector("#movie-details").appendChild(div);
+  document.querySelector("#show-details").appendChild(div);
 }
 //Display backdrop on details pages
 function displayBackgroundImage(type, backgroundPath) {
