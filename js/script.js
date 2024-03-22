@@ -75,6 +75,29 @@ async function displayPopularShows() {
     document.querySelector("#popular-shows").appendChild(div);
   });
 }
+// display streaming provider
+async function displayStreamingProviders() {
+  const movieId = window.location.search.split("=")[1];
+  console.log(movieId);
+  const providers = await fetchAPIData(`movie/${movieId}/watch/providers`);
+  console.log(providers.results.US);
+  const div = document.createElement("div");
+  div.innerHTML = `
+  <ul class="flatrate">
+      Flat Rate:
+      <li>${providers.results.US.flatrate.provider_name}</li>
+    </ul>
+    <ul class="rent">
+      Rent:
+      <li>${providers.results.US.rent.provider_name}</li>
+    </ul>
+    <ul class="buy">
+      Buy:
+      <li>${providers.results.US.buy.provider_name}</li>
+    </ul>
+  `;
+  console.log(div.innerHTML);
+}
 // display movie details
 async function displayMovieDetails() {
   //?id=763215 split at = sign to get number get value a index 1
@@ -275,9 +298,11 @@ function init() {
       break;
     case "/movie-details.html":
       displayMovieDetails();
+      displayStreamingProviders();
       break;
     case "/tv-details.html":
       displayShowDetails();
+      displayStreamingProviders();
       break;
   }
   // init runs on every page so calling here
