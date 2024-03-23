@@ -85,10 +85,13 @@ async function displayStreamingProviders() {
   div.innerHTML = `
   <ul class="flatrate">
       Flat Rate:
-      <li>${providers.results.US.flatrate.provider_name}</li>
+      ${providers.results.US.flatrate
+        .map((provider) => `<li>${provider.provider_name}</li>`)
+        .join("")}
+      
     </ul>
     <ul class="rent">
-      Rent:
+      Rent: 
       <li>${providers.results.US.rent.provider_name}</li>
     </ul>
     <ul class="buy">
