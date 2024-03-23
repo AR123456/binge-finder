@@ -295,13 +295,29 @@ async function displaySlider() {
   initSwiper();
 }
 function initSwiper() {
-  const swiper = new Swiper("swiper", {
+  // options object
+  const swiper = new Swiper(".swiper", {
     slidesPerView: 1,
     spaceBetween: 30,
+    // user can drag
     freeMode: true,
     loop: true,
     autoplay: {
-      delay: 10,
+      delay: 4000,
+      // if this is set to true slide show will stop/pause on hover
+      disableOnInteraction: false,
+    },
+    // width and number of slides per that width
+    breakpoints: {
+      500: {
+        slidesPerView: 2,
+      },
+      700: {
+        slidesPerView: 3,
+      },
+      1200: {
+        slidesPerView: 4,
+      },
     },
   });
 }
