@@ -87,10 +87,8 @@ async function displayMovieDetails() {
   // streaming
   const providers = await fetchAPIData(`movie/${movieId}/watch/providers`);
   console.log(providers);
-
   const streamingLists = `
-  
-  <h2>Where to see it</h2>
+    <h2>Where to see it</h2>
   
   <div class="flatrate">
       Flat Rate:
@@ -195,6 +193,7 @@ async function displayShowDetails() {
   const showId = window.location.search.split("=")[1];
 
   const show = await fetchAPIData(`tv/${showId}`);
+
   //Overlay for background image- path from API
   displayBackgroundImage("tv", show.backdrop_path);
   const div = document.createElement("div");
@@ -275,7 +274,37 @@ function displayBackgroundImage(type, backgroundPath) {
     document.querySelector("#show-details").appendChild(overlayDiv);
   }
 }
+// implementing swiper
 
+async function displaySlider() {
+  const { results } = await fetchAPIData("movie/now_playing");
+
+  results.forEach((movie) => {
+    const div = document.createElement("div");
+    div.classList.add("swiper-slide");
+    div.innerHTML = `          
+<a href="movie-details.html?id=${movie.id}">
+  <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"/>
+</a>
+<h4 class="swiper-rating">
+  <i class="fas fa-star text-secondary"></i> ${movie.vote_average} / 10
+</h4>
+`;
+    document.querySelector(".swiper-wrapper").appendChild(div);
+  });
+  initSwiper();
+}
+function initSwiper() {
+  const swiper = new Swiper("swiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    freeMode: true,
+    loop: true,
+    autoplay: {
+      delay: 10,
+    },
+  });
+}
 // Fetch data from TMDB API note   IRL this would be on the server
 async function fetchAPIData(endpoint) {
   const API_URL = "https://api.themoviedb.org/3/";
@@ -313,7 +342,9 @@ function init() {
   switch (global.currentPage) {
     case "/":
     case "/index.html":
+      displaySlider();
       displayPopularMovies();
+
       break;
     case "/shows.html":
       displayPopularShows();
