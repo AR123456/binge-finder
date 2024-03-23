@@ -76,42 +76,61 @@ async function displayPopularShows() {
   });
 }
 // display streaming provider
-async function displayStreamingProviders() {
-  const movieId = window.location.search.split("=")[1];
-  console.log(movieId);
-  const providers = await fetchAPIData(`movie/${movieId}/watch/providers`);
-  console.log(providers.results.US);
-  const div = document.createElement("div");
-  div.innerHTML = `
-  <ul class="flatrate">
-      Flat Rate:
-      ${providers.results.US.flatrate
-        .map((provider) => `<li>${provider.provider_name}</li>`)
-        .join("")}
-      
-    </ul>
-    <ul class="rent">
-      Rent: 
-      <li>${providers.results.US.rent.provider_name}</li>
-    </ul>
-    <ul class="buy">
-      Buy:
-      <li>${providers.results.US.buy.provider_name}</li>
-    </ul>
-  `;
-  console.log(div.innerHTML);
-}
+
 // display movie details
 async function displayMovieDetails() {
   //?id=763215 split at = sign to get number get value a index 1
   const movieId = window.location.search.split("=")[1];
-
   const movie = await fetchAPIData(`movie/${movieId}`);
   //Overlay for background image- path from API
   displayBackgroundImage("movie", movie.backdrop_path);
+  // streaming
+  const providers = await fetchAPIData(`movie/${movieId}/watch/providers`);
+  console.log(providers);
+
+  const streamingLists = `
+  
+  <h2>Where to see it</h2>
+  
+  <div class="flatrate">
+      Flat Rate:
+      ${
+        providers.results &&
+        providers.results.US &&
+        providers.results.US.flatrate
+          ? providers.results.US.flatrate
+              .map((provider) => `<span> ${provider.provider_name}</span>`)
+              .join(", ")
+          : ""
+      }
+      
+    </div>
+    <div class="rent">
+      Rent: 
+      ${
+        providers.results && providers.results.US && providers.results.US.rent
+          ? providers.results.US.rent
+              .map((provider) => `<span>${provider.provider_name}</span>`)
+              .join(", ")
+          : ""
+      }
+      
+    </div>
+    <div class="buy">
+    Buy:
+    ${
+      providers.results && providers.results.US && providers.results.US.buy
+        ? providers.results.US.buy
+            .map((provider) => ` <span>${provider.provider_name}</span>`)
+            .join(", ")
+        : ""
+    }
+         
+    </div>
+  `;
   const div = document.createElement("div");
   div.innerHTML = `   
-  <div class="details-top">
+    <div class="details-top">
     <div>
     ${
       movie.poster_path
@@ -145,8 +164,11 @@ async function displayMovieDetails() {
         movie.homepage
       }" target="_blank" class="btn">Visit Movie Homepage</a>
     </div>
+
   </div>
   <div class="details-bottom">
+  
+  <div>${providers.results.US ? `${streamingLists}` : ""}</div>
     <h2>Movie Info</h2>
     <ul>
       <li><span class="text-secondary">Budget:</span> $${addCommasToNumber(
@@ -301,11 +323,11 @@ function init() {
       break;
     case "/movie-details.html":
       displayMovieDetails();
-      displayStreamingProviders();
+
       break;
     case "/tv-details.html":
       displayShowDetails();
-      displayStreamingProviders();
+
       break;
   }
   // init runs on every page so calling here
