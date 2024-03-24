@@ -316,13 +316,35 @@ function displaySearchResults(results) {
   results.forEach((result) => {
     const div = document.createElement("div");
     div.classList.add("card");
-    div.innerHTML = ` <a href="#">
-    <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" class="card-img-top" alt="" />
+    div.innerHTML = ` <a href="${global.search.type}-details.html?id=${
+      result.id
+    }">
+${
+  result.poster_path
+    ? `
+    <img
+      src="https://image.tmdb.org/t/p/w500${result.poster_path}"
+      class="card-img-top"
+      alt="${global.search.type === "movie" ? result.title : result.name}"
+    />
+  `
+    : `  <img
+    src="../images/no-image.jpg"
+    class="card-img-top"
+    alt="${global.search.type === "movie" ? result.title : result.name}"
+  />`
+}
   </a>
   <div class="card-body">
-    <h5 class="card-title">${result.title}</h5>
+    <h5 class="card-title">${
+      global.search.type === "movie" ? result.title : result.name
+    }</h5>
     <p class="card-text">
-      <small class="text-muted">Release: ${result.release_date}</small>
+      <small class="text-muted">Release: ${
+        global.search.type === "movie"
+          ? result.release_date
+          : result.first_air_date
+      }</small>
     </p>
   </div>
   `;
