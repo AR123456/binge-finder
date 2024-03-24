@@ -292,20 +292,42 @@ async function search() {
   // console.log(querySting); ///search.html?type=movie&search-term=
   // parse out the methods on the protype   queryString
   const urlParams = new URLSearchParams(querySting);
-  // using .get()method
-  // console.log(urlParams.get("type"));
   // set the global search object const to the params
   global.search.type = urlParams.get("type");
   // input name attribute gets passed into get
   global.search.term = urlParams.get("search-term");
   if (global.search.term !== "" && global.search.term !== null) {
-    // search
-    const results = await searchAPIData();
+    // a little destructuring
+    const { results, total_pages, page } = await searchAPIData();
+    if (results.length === 0) {
+      showAlert("No results found");
+      return;
+    }
     console.log(results);
-    // display results
+    displaySearchResults(results);
+    // clear search input
+    document.querySelector("#search-term").value = "";
   } else {
     showAlert("Please enter a search term");
   }
+}
+// display search results
+function displaySearchResults(results) {
+  results.forEach((result) => {
+    const div = document.createElement("div");
+    div.classList.add("card");
+    div.innerHTML = ` <a href="#">
+    <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" class="card-img-top" alt="" />
+  </a>
+  <div class="card-body">
+    <h5 class="card-title">${result.title}</h5>
+    <p class="card-text">
+      <small class="text-muted">Release: ${result.release_date}</small>
+    </p>
+  </div>
+  `;
+    document.querySelector("#search-results").appendChild(div);
+  });
 }
 
 // implementing swiper for movies
@@ -378,7 +400,6 @@ async function fetchAPIData(endpoint) {
   showSpinner();
   // const API_URL = "https://api.themoviedb.org/3/";
   const API_URL = global.api.apiUrl;
-
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
   );
@@ -389,9 +410,7 @@ async function fetchAPIData(endpoint) {
 // Get request to search
 async function searchAPIData() {
   showSpinner();
-
   const API_URL = global.api.apiUrl;
-
   const response = await fetch(
     `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
   );
@@ -416,7 +435,7 @@ function highlightActiveLink() {
   });
 }
 // Show alert - for various stuff
-function showAlert(message, className) {
+function showAlert(message, className = "error") {
   const alertEl = document.createElement("div");
   alertEl.classList.add("alert", className);
   alertEl.appendChild(document.createTextNode(message));
