@@ -4,6 +4,17 @@ import { API_KEY } from "../env.js";
 // the current page
 const global = {
   currentPage: window.location.pathname,
+  //putting search in global scope
+  search: {
+    term: "",
+    type: "",
+    page: 1,
+    totalPages: 1,
+  },
+  api: {
+    apiKey: API_KEY,
+    apiUrl: "https://api.themoviedb.org/3/",
+  },
 };
 
 // display (popular ) movies- add this to the DYI router
@@ -86,7 +97,7 @@ async function displayMovieDetails() {
   displayBackgroundImage("movie", movie.backdrop_path);
   // streaming
   const providers = await fetchAPIData(`movie/${movieId}/watch/providers`);
-  console.log(providers);
+  // console.log(providers);
   const streamingLists = `
     <h2>Where to see it</h2>
   
@@ -278,16 +289,23 @@ function displayBackgroundImage(type, backgroundPath) {
 async function search() {
   // use window location to get the query string from the URL
   const querySting = window.location.search;
-  console.log(querySting);
-  // const API_URL = "https://api.themoviedb.org/3/";
-  // // showSpinner();
-
-  // const response = await fetch(
-  //   `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
-  // );
-  // const data = await response.json();
-  // hideSpinner();
-  // return data;
+  // console.log(querySting); ///search.html?type=movie&search-term=
+  // parse out the methods on the protype   queryString
+  const urlParams = new URLSearchParams(querySting);
+  // using .get()method
+  // console.log(urlParams.get("type"));
+  // set the global search object const to the params
+  global.search.type = urlParams.get("type");
+  // input name attribute gets passed into get
+  global.search.term = urlParams.get("search-term");
+  if (global.search.term !== "" && global.search.term !== null) {
+    // search
+    const results = await searchAPIData();
+    console.log(results);
+    // display results
+  } else {
+    showAlert("Please enter a search term");
+  }
 }
 
 // implementing swiper for movies
@@ -357,11 +375,25 @@ function initSwiper() {
 }
 // Fetch data from TMDB API note   IRL this would be on the server
 async function fetchAPIData(endpoint) {
-  const API_URL = "https://api.themoviedb.org/3/";
   showSpinner();
+  // const API_URL = "https://api.themoviedb.org/3/";
+  const API_URL = global.api.apiUrl;
 
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
+  );
+  const data = await response.json();
+  hideSpinner();
+  return data;
+}
+// Get request to search
+async function searchAPIData() {
+  showSpinner();
+
+  const API_URL = global.api.apiUrl;
+
+  const response = await fetch(
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
   );
   const data = await response.json();
   hideSpinner();
@@ -382,6 +414,14 @@ function highlightActiveLink() {
       link.classList.add("active");
     }
   });
+}
+// Show alert - for various stuff
+function showAlert(message, className) {
+  const alertEl = document.createElement("div");
+  alertEl.classList.add("alert", className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector("#alert").appendChild(alertEl);
+  setTimeout(() => alertEl.remove(), 3000);
 }
 // function to add commas to numbers
 function addCommasToNumber(number) {
