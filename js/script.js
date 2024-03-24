@@ -274,6 +274,22 @@ function displayBackgroundImage(type, backgroundPath) {
     document.querySelector("#show-details").appendChild(overlayDiv);
   }
 }
+// search function
+async function search() {
+  // use window location to get the query string from the URL
+  const querySting = window.location.search;
+  console.log(querySting);
+  // const API_URL = "https://api.themoviedb.org/3/";
+  // // showSpinner();
+
+  // const response = await fetch(
+  //   `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
+  // );
+  // const data = await response.json();
+  // hideSpinner();
+  // return data;
+}
+
 // implementing swiper for movies
 async function displaySlider() {
   const { results } = await fetchAPIData("movie/now_playing");
@@ -385,7 +401,7 @@ function init() {
       displayPopularShows();
       break;
     case "/search.html":
-      console.log("search");
+      search();
       break;
     case "/movie-details.html":
       displayMovieDetails();
