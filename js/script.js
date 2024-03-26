@@ -55,7 +55,6 @@ async function displayPopularMovies() {
 }
 async function displayPopularShows() {
   const { results } = await fetchAPIData("tv/popular");
-
   results.forEach((show) => {
     // display a card for each result
     const div = document.createElement("div");
@@ -202,6 +201,7 @@ async function displayMovieDetails() {
 }
 async function displayShowDetails() {
   //?id=763215 split at = sign to get number get value a index 1
+  console.log();
   const showId = window.location.search.split("=")[1];
 
   const show = await fetchAPIData(`tv/${showId}`);
@@ -318,8 +318,14 @@ async function search() {
 }
 // display search results
 function displaySearchResults(results) {
+  // clear prior results
+  document.querySelector("#search-results").innerHTML = "";
+  document.querySelector("#search-results-heading").innerHTML = "";
+  document.querySelector("#pagination").innerHTML = "";
+
   results.forEach((result) => {
     const div = document.createElement("div");
+
     div.classList.add("card");
     div.innerHTML = ` <a href="${global.search.type}-details.html?id=${
       result.id
@@ -383,6 +389,15 @@ function displayPagination() {
     global.search.page++;
     // note needed to add addtional "&page=${global.search.page}" to query params
     const { results, total_pages } = await searchAPIData();
+    // previous resutls
+
+    displaySearchResults(results);
+  });
+  document.querySelector("#prev").addEventListener("click", async () => {
+    global.search.page--;
+    // note needed to add addtional "&page=${global.search.page}" to query params
+    const { results, total_pages } = await searchAPIData();
+    // previous resutls
 
     displaySearchResults(results);
   });
@@ -410,12 +425,12 @@ async function displaySlider() {
 // implement swiper for shows - recommendations
 async function showSlider() {
   const { results } = await fetchAPIData("tv/top_rated");
-  // console.log(results);
+
   results.forEach((show) => {
     const div = document.createElement("div");
     div.classList.add("swiper-slide");
     div.innerHTML = `
-  <a href="movie-details.html?id=${show.id}">
+  <a href="tv-details.html?id=${show.id}">
     <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" alt="${show.name}"/>
   </a>
   <h4 class="swiper-rating">
