@@ -355,14 +355,14 @@ ${
   `;
 
     document.querySelector("#search-results-heading").innerHTML = `
-    <h2>${results.length}of ${global.search.totalResults} Results for ${global.search.term}</h2> 
+    <h2>${results.length} of ${global.search.totalResults} Results for ${global.search.term}</h2> 
     
     `;
     document.querySelector("#search-results").appendChild(div);
   });
   displayPagination();
 }
-// Pagination for search
+////// Pagination for search
 function displayPagination() {
   const div = document.createElement("div");
   div.classList.add("pagination");
@@ -372,6 +372,20 @@ function displayPagination() {
   <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
  `;
   document.querySelector("#pagination").appendChild(div);
+  // check page and if on the first page apply disabled css
+  if (global.search.page === 1) {
+    document.querySelector("#prev").disabled = true;
+  }
+  if (global.search.page === global.search.totalPages)
+    document.querySelector("next").disabled = true;
+  // wire up clicking the button - sending request to API so async await
+  document.querySelector("#next").addEventListener("click", async () => {
+    global.search.page++;
+    // note needed to add addtional "&page=${global.search.page}" to query params
+    const { results, total_pages } = await searchAPIData();
+
+    displaySearchResults(results);
+  });
 }
 
 // implementing swiper for movies
@@ -456,7 +470,7 @@ async function searchAPIData() {
   showSpinner();
   const API_URL = global.api.apiUrl;
   const response = await fetch(
-    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
   );
   const data = await response.json();
   hideSpinner();
