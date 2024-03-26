@@ -10,7 +10,7 @@ const global = {
     type: "",
     page: 1,
     totalPages: 1,
-    totalResults: 0,
+    totalResult: 0,
   },
   api: {
     apiKey: API_KEY,
@@ -55,6 +55,7 @@ async function displayPopularMovies() {
 }
 async function displayPopularShows() {
   const { results } = await fetchAPIData("tv/popular");
+
   results.forEach((show) => {
     // display a card for each result
     const div = document.createElement("div");
@@ -201,7 +202,6 @@ async function displayMovieDetails() {
 }
 async function displayShowDetails() {
   //?id=763215 split at = sign to get number get value a index 1
-  console.log();
   const showId = window.location.search.split("=")[1];
 
   const show = await fetchAPIData(`tv/${showId}`);
@@ -300,7 +300,6 @@ async function search() {
   if (global.search.term !== "" && global.search.term !== null) {
     // a little destructuring
     const { results, total_pages, page, total_results } = await searchAPIData();
-
     global.search.page = page;
     global.search.totalPages = total_pages;
     global.search.totalResults = total_results;
@@ -318,14 +317,8 @@ async function search() {
 }
 // display search results
 function displaySearchResults(results) {
-  // clear prior results
-  document.querySelector("#search-results").innerHTML = "";
-  document.querySelector("#search-results-heading").innerHTML = "";
-  document.querySelector("#pagination").innerHTML = "";
-
   results.forEach((result) => {
     const div = document.createElement("div");
-
     div.classList.add("card");
     div.innerHTML = ` <a href="${global.search.type}-details.html?id=${
       result.id
@@ -359,48 +352,23 @@ ${
     </p>
   </div>
   `;
-
     document.querySelector("#search-results-heading").innerHTML = `
-    <h2>${results.length} of ${global.search.totalResults} Results for ${global.search.term}</h2> 
+    <h2>${results.length} of ${global.search.totalResult} Results for ${global.search.term}</h2> 
     
     `;
     document.querySelector("#search-results").appendChild(div);
   });
-  displayPagination();
 }
-////// Pagination for search
+// Pagination for search
 function displayPagination() {
   const div = document.createElement("div");
   div.classList.add("pagination");
-  div.innerHTML = `   
+  div.innerHTML = `  <div class="pagination">
   <button class="btn btn-primary" id="prev">Prev</button>
   <button class="btn btn-primary" id="next">Next</button>
-  <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
- `;
-  document.querySelector("#pagination").appendChild(div);
-  // check page and if on the first page apply disabled css
-  if (global.search.page === 1) {
-    document.querySelector("#prev").disabled = true;
-  }
-  if (global.search.page === global.search.totalPages)
-    document.querySelector("next").disabled = true;
-  // wire up clicking the button - sending request to API so async await
-  document.querySelector("#next").addEventListener("click", async () => {
-    global.search.page++;
-    // note needed to add addtional "&page=${global.search.page}" to query params
-    const { results, total_pages } = await searchAPIData();
-    // previous resutls
-
-    displaySearchResults(results);
-  });
-  document.querySelector("#prev").addEventListener("click", async () => {
-    global.search.page--;
-    // note needed to add addtional "&page=${global.search.page}" to query params
-    const { results, total_pages } = await searchAPIData();
-    // previous resutls
-
-    displaySearchResults(results);
-  });
+  <div class="page-counter">Page 1 of ${global.search.totalPages}</div>
+</div>`;
+  document.querySelector(".pagination").appendChild(div);
 }
 
 // implementing swiper for movies
@@ -425,12 +393,12 @@ async function displaySlider() {
 // implement swiper for shows - recommendations
 async function showSlider() {
   const { results } = await fetchAPIData("tv/top_rated");
-
+  // console.log(results);
   results.forEach((show) => {
     const div = document.createElement("div");
     div.classList.add("swiper-slide");
     div.innerHTML = `
-  <a href="tv-details.html?id=${show.id}">
+  <a href="movie-details.html?id=${show.id}">
     <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" alt="${show.name}"/>
   </a>
   <h4 class="swiper-rating">
@@ -485,7 +453,7 @@ async function searchAPIData() {
   showSpinner();
   const API_URL = global.api.apiUrl;
   const response = await fetch(
-    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}&page=${global.search.page}`
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
   );
   const data = await response.json();
   hideSpinner();
@@ -534,7 +502,7 @@ function init() {
       break;
     case "/search.html":
       search();
-
+      displayPagination();
       break;
     case "/movie-details.html":
       displayMovieDetails();
