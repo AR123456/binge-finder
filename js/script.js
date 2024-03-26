@@ -366,12 +366,12 @@ ${
 function displayPagination() {
   const div = document.createElement("div");
   div.classList.add("pagination");
-  div.innerHTML = `  <div class="pagination">
+  div.innerHTML = `   
   <button class="btn btn-primary" id="prev">Prev</button>
   <button class="btn btn-primary" id="next">Next</button>
-  <div class="page-counter">Page 1 of ${global.search.totalPages}</div>
-</div>`;
-  // document.querySelector(".pagination").appendChild("div");
+  <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
+ `;
+  document.querySelector("#pagination").appendChild(div);
 }
 
 // implementing swiper for movies
