@@ -389,6 +389,15 @@ function displayPagination() {
     global.search.page++;
     // note needed to add addtional "&page=${global.search.page}" to query params
     const { results, total_pages } = await searchAPIData();
+    // previous resutls
+
+    displaySearchResults(results);
+  });
+  document.querySelector("#prev").addEventListener("click", async () => {
+    global.search.page--;
+    // note needed to add addtional "&page=${global.search.page}" to query params
+    const { results, total_pages } = await searchAPIData();
+    // previous resutls
 
     displaySearchResults(results);
   });
