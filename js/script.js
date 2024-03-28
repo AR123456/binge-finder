@@ -1,4 +1,3 @@
-import displayBackgroundImage from "./background.js";
 import { API_KEY } from "../env.js";
 // get ID from URL -building an vanilla JS router
 // console.log(window.location.pathname); //  index.html or whatever page the href is to
@@ -20,16 +19,14 @@ const global = {
 };
 
 // display (popular ) movies- add this to the DYI router
-async function displayPopularMovies() {
+const displayPopularMovies = async () => {
   const { results } = await fetchAPIData("movie/popular");
-
   results.forEach((movie) => {
     // display a card for each result
     const div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `  
   <a href="movie-details.html?id=${movie.id}">
-
   ${
     movie.poster_path
       ? `<img
@@ -49,13 +46,13 @@ async function displayPopularMovies() {
     <p class="card-text">
       <small class="text-muted">Release: ${movie.release_date}</small>
     </p>
-
 </div>`;
     document.querySelector("#popular-movies").appendChild(div);
   });
-}
-async function displayPopularShows() {
+};
+const displayPopularShows = async () => {
   const { results } = await fetchAPIData("tv/popular");
+
   results.forEach((show) => {
     // display a card for each result
     const div = document.createElement("div");
@@ -86,7 +83,7 @@ async function displayPopularShows() {
 </div>`;
     document.querySelector("#popular-shows").appendChild(div);
   });
-}
+};
 // display streaming provider
 
 // display movie details
@@ -202,7 +199,6 @@ async function displayMovieDetails() {
 }
 async function displayShowDetails() {
   //?id=763215 split at = sign to get number get value a index 1
-  console.log();
   const showId = window.location.search.split("=")[1];
 
   const show = await fetchAPIData(`tv/${showId}`);
@@ -267,7 +263,26 @@ async function displayShowDetails() {
 </div>`;
   document.querySelector("#show-details").appendChild(div);
 }
-
+//Display backdrop on details pages
+const displayBackgroundImage = (type, backgroundPath) => {
+  const overlayDiv = document.createElement("div");
+  overlayDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backgroundPath})`;
+  overlayDiv.style.backgroundSize = "cover";
+  overlayDiv.style.backgroundPosition = "center";
+  overlayDiv.style.backgroundRepeat = "no-repeat";
+  overlayDiv.style.height = "100vh";
+  overlayDiv.style.width = "100vw";
+  overlayDiv.style.position = "absolute";
+  overlayDiv.style.top = "0";
+  overlayDiv.style.left = "0";
+  overlayDiv.style.zIndex = "-1";
+  overlayDiv.style.opacity = "0.1";
+  if (type === "movie") {
+    document.querySelector("#movie-details").appendChild(overlayDiv);
+  } else {
+    document.querySelector("#show-details").appendChild(overlayDiv);
+  }
+};
 // search function
 async function search() {
   // use window location to get the query string from the URL
@@ -299,7 +314,7 @@ async function search() {
   }
 }
 // display search results
-const displaySearchResults = (results) => {
+function displaySearchResults(results) {
   // clear prior results
   document.querySelector("#search-results").innerHTML = "";
   document.querySelector("#search-results-heading").innerHTML = "";
@@ -349,8 +364,7 @@ ${
     document.querySelector("#search-results").appendChild(div);
   });
   displayPagination();
-};
-
+}
 ////// Pagination for search
 function displayPagination() {
   const div = document.createElement("div");
@@ -408,12 +422,12 @@ async function displaySlider() {
 // implement swiper for shows - recommendations
 async function showSlider() {
   const { results } = await fetchAPIData("tv/top_rated");
-
+  // console.log(results);
   results.forEach((show) => {
     const div = document.createElement("div");
     div.classList.add("swiper-slide");
     div.innerHTML = `
-  <a href="tv-details.html?id=${show.id}">
+  <a href="movie-details.html?id=${show.id}">
     <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" alt="${show.name}"/>
   </a>
   <h4 class="swiper-rating">
